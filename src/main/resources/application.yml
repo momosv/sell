@@ -1,0 +1,53 @@
+spring:
+  datasource:
+      #123.207.23.166:3306
+      name: db
+      driver-class-name: com.mysql.jdbc.Driver
+      username: cxf
+      password: xfxf
+      url: jdbc:mysql://123.207.95.134/sell?characterEncoding=utf-8&useSSL=false
+      type: com.alibaba.druid.pool.DruidDataSource
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+      druidLoginName: momo # 登录druid的账号
+      druidPassword: momo # 登录druid的密码
+       # HTTP ENCODING
+  http:
+      encoding.charset: UTF-8
+      encoding.enable: true
+      encoding.force: true
+logging:
+  config: classpath:logback.xml
+  path: logs
+  level:
+    org:
+      springframework:
+         security: INFO
+
+mybatis:
+     mapperLocations: classpath:/mapper/*.xml
+     typeAliasesPackage: cn.momosv.hos.dao
+     mapperScanPackage: cn.momosv.hos.dao
+     configLocation: classpath:/mybatis-config.xml
+#  jpa:
+#    show-sql: true
+jackson:
+#    全局配置，使得数据为null时不返回给前端
+    default-property-inclusion: non_null
+
+server:
+#  context-path: /sell
