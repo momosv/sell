@@ -18,6 +18,16 @@ public class ProductInfoVO {
     @JsonProperty("icon")
     private String productIcon;
 
+    private String categoryId; //所属类目
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getProductId() {
         return productId;
     }

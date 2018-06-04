@@ -1,9 +1,12 @@
 package com.cxf.sell.dataobject;
 
+import com.cxf.sell.dataobject.base.IBaseDBPO;
+import com.cxf.sell.utils.RegexUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderDetail {
+public class OrderDetail extends IBaseDBPO{
     private String detailId;
 
     private String orderId;
@@ -12,7 +15,7 @@ public class OrderDetail {
 
     private String productName;
 
-    private BigDecimal productPrice;
+    private Double productPrice;
 
     private Integer productQuantity;
 
@@ -54,11 +57,11 @@ public class OrderDetail {
         this.productName = productName == null ? null : productName.trim();
     }
 
-    public BigDecimal getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -92,5 +95,28 @@ public class OrderDetail {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    //数据库表名
+    @Override
+    public String _getTableName() {
+        return "order_detail";
+       /* String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());//
+        return name;*/
+    }
+    //数据库表主键
+    @Override
+    public String _getPKColumnName() {
+        return "detail_id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return detailId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.detailId= (String) var1;
     }
 }

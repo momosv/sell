@@ -1,5 +1,7 @@
 package com.cxf.sell.dataobject.base;
 
+import com.cxf.sell.utils.RegexUtils;
+
 import java.io.Serializable;
 
 /**
@@ -14,9 +16,7 @@ public  abstract class IBaseDBPO implements Serializable, Cloneable{
 
 	abstract public  String _getTableName();
 
-	 public String _getPKColumnName(){
-	 	return "id";
-	 };
+	abstract public String _getPKColumnName();
 
 	abstract public String _getPKValue();
 

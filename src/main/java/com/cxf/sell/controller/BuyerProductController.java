@@ -1,84 +1,62 @@
-//package com.cxf.sell.controller;
-//
-//import com.cxf.sell.VO.ProductInfoVO;
-//import com.cxf.sell.VO.ProductVO;
-//import com.cxf.sell.VO.ResultVO;
-//import com.cxf.sell.dataobject.ProductCategory;
-//import com.cxf.sell.dataobject.ProductInfo;
-//import com.cxf.sell.service.CategoryService;
-//import com.cxf.sell.service.ProductService;
-//import com.cxf.sell.utils.ResultVOUtils;
-//import org.springframework.beans.BeanUtils;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//
-//
-//@RestController /* 返回json格式 */
-//@RequestMapping("/buyer/product")
-//public class BuyerProductController {
-//
-//    @Autowired
-//    private ProductService productService; /* 查询商品要用到ProductService */
-//
-//    @Autowired
-//    private CategoryService categoryService;
-//
-//    @GetMapping("/list")
-//    public ResultVO list() {
-//        // 1.从数据库中查询所有的上架商品
-//        List<ProductInfo> productInfoList =  productService.findUpAll();
-//
-//        // 2.从数据库中查询商品类目
-//        // List<Integer> categoryTypeList = new ArrayList<>();
-//        // 传统方法
-//        // 遍历productInfoList，把每一个ProductInfo取出来
-//        // for(ProductInfo productInfo : productInfoList) {
-//        //     categoryTypeList.add(productInfo.getCategoryType());
-//        // }
-//        // 精简做法（java 8 lambda）
-//        List<Integer> categoryTypeList =  productInfoList.stream()
-//                .map(productInfo -> productInfo.getCategoryType())
-//                .collect(Collectors.toList());
-//        List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
-//
-//        // 3.数据拼装
-//        List<ProductVO> productVOList = new ArrayList<>();
-//        // 首先遍历类目
-//        for(ProductCategory productCategory : productCategoryList) {
-//            ProductVO productVO = new ProductVO();
-//            productVO.setCategoryType(productCategory.getCategoryType());
-//            productVO.setCategoryName(productCategory.getCategoryName());
-//
-//            List<ProductInfoVO> productInfoVOList = new ArrayList<>();
-//            for (ProductInfo productInfo : productInfoList) {
-//                if (productInfo.getCategoryType().equals(productCategory.getCategoryType())) {
-//                    ProductInfoVO productInfoVO = new ProductInfoVO();
-//                    // setter太过麻烦，所以用Spring自带的BeanUtils，把productInfo的属性复制到productInfoVO中
-//                    BeanUtils.copyProperties(productInfo, productInfoVO);
-//                    productInfoVOList.add(productInfoVO);
-//                }
-//            }
-//            productVO.setProductInfoVOList(productInfoVOList);
-//            productVOList.add(productVO);
-//        }
-//
-//        // ResultVO resultVO = new ResultVO();
-//        // ProductVO productVO = new ProductVO();
-//        // ProductInfoVO productInfoVO = new ProductInfoVO();
-//        // productVO.setProductInfoVOList(Arrays.asList(productInfoVO));
-//        // resultVO.setData(Arrays.asList(productVO));
-//        // resultVO.setData(productVOList);
-//        // resultVO.setCode(0);
-//        // resultVO.setMsg("成功");
-//        // return resultVO;
-//        return ResultVOUtils.success(productVOList);
-//    }
-//}
+package com.cxf.sell.controller;
+
+import com.cxf.sell.VO.ProductInfoVO;
+import com.cxf.sell.VO.ProductVO;
+import com.cxf.sell.VO.ResultVO;
+import com.cxf.sell.dataobject.ProductCategory;
+import com.cxf.sell.dataobject.ProductInfo;
+import com.cxf.sell.dataobject.base.BasicExample;
+import com.cxf.sell.service.BasicService;
+
+import com.cxf.sell.utils.ResultVOUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+
+
+@RestController /* 返回json格式 */
+@RequestMapping("/buyer/product")
+public class BuyerProductController {
+
+    @Autowired
+    private BasicService basicService;
+
+    @GetMapping("/list")
+    public ResultVO list(String sellerId) throws Exception {
+        //查询类目
+        BasicExample typeExa = new BasicExample(ProductCategory.class);
+        typeExa.createCriteria().andVarEqualTo("seller_id",sellerId);//seller_id 是Product_Category  表对应的字段名
+        List<ProductVO> productCategoryList =  basicService.selectByExample(typeExa);//ProductVO 的字段和数据库表保持驼峰 下划线转换一直，会自动set值
+        //根据类目找到对应的商品
+        List<String> cateIds = new ArrayList<>();
+        for (ProductVO category : productCategoryList) {
+            category.getCategoryId();
+        }
+        BasicExample example = new BasicExample(ProductInfo.class);
+        BasicExample.Criteria criteria= example.createCriteria();//构造查询条件
+        criteria.andVarIn("category_id",cateIds);
+        List<ProductInfoVO> productInfoList =  basicService.selectByExample(example);
+        Map<String,List<ProductInfoVO>> infoMap = new HashMap<>();//key:categoryId
+        //循环封装info
+        for (ProductInfoVO info : productInfoList) {
+            if(infoMap.containsKey(info.getCategoryId())){
+                infoMap.get(info.getCategoryId()).add(info);
+            }else {
+                List<ProductInfoVO> productInfoVOList = new ArrayList<>();
+                productInfoVOList.add(info);
+                infoMap.get(info.getCategoryId()).add(info);
+            }
+        }
+        //封装输出
+        for (ProductVO vo : productCategoryList) {
+            vo.setProductInfoVOList(infoMap.get(vo.getCategoryId()));
+        }
+        return ResultVOUtils.success(productCategoryList);
+    }
+}

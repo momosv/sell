@@ -12,10 +12,11 @@
     <result column="category_type" property="categoryType" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     product_id, product_name, product_price, product_stock, product_description, product_icon, 
-    product_status, category_type, create_time, update_time
+    product_status, category_type, create_time, update_time,category_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

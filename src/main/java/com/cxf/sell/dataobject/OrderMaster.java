@@ -1,9 +1,11 @@
 package com.cxf.sell.dataobject;
 
+import com.cxf.sell.dataobject.base.IBaseDBPO;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderMaster {
+public class OrderMaster extends IBaseDBPO{
     private String orderId;
 
     private String buyerName;
@@ -14,11 +16,11 @@ public class OrderMaster {
 
     private String buyerOpenid;
 
-    private BigDecimal orderAmount;
+    private Double orderAmount;
 
-    private Byte orderStatus;
+    private Integer orderStatus;
 
-    private Byte payStatus;
+    private Integer payStatus;
 
     private Date createTime;
 
@@ -64,27 +66,27 @@ public class OrderMaster {
         this.buyerOpenid = buyerOpenid == null ? null : buyerOpenid.trim();
     }
 
-    public BigDecimal getOrderAmount() {
+    public Double getOrderAmount() {
         return orderAmount;
     }
 
-    public void setOrderAmount(BigDecimal orderAmount) {
+    public void setOrderAmount(Double orderAmount) {
         this.orderAmount = orderAmount;
     }
 
-    public Byte getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Byte orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public Byte getPayStatus() {
+    public Integer getPayStatus() {
         return payStatus;
     }
 
-    public void setPayStatus(Byte payStatus) {
+    public void setPayStatus(Integer payStatus) {
         this.payStatus = payStatus;
     }
 
@@ -102,5 +104,25 @@ public class OrderMaster {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String _getTableName() {
+        return "order_master";
+    }
+
+    @Override
+    public String _getPKColumnName() {
+        return "order_id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return orderId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.orderId= (String) var1;
     }
 }

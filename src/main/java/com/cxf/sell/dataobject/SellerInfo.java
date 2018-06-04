@@ -1,21 +1,23 @@
 package com.cxf.sell.dataobject;
 
+import com.cxf.sell.dataobject.base.IBaseDBPO;
+
 import java.math.BigDecimal;
 
-public class SellerInfo {
+public class SellerInfo extends IBaseDBPO{
     private String sellerId;
 
     private String sellerName;
 
     private String sellerDescription;
 
-    private BigDecimal sellerScore;
+    private Double sellerScore;
 
-    private BigDecimal sellerServiceScore;
+    private Double sellerServiceScore;
 
-    private BigDecimal sellerFoodScore;
+    private Double sellerFoodScore;
 
-    private BigDecimal sellerRankRate;
+    private Double sellerRankRate;
 
     private Integer sellerMinPrice;
 
@@ -51,35 +53,35 @@ public class SellerInfo {
         this.sellerDescription = sellerDescription == null ? null : sellerDescription.trim();
     }
 
-    public BigDecimal getSellerScore() {
+    public Double getSellerScore() {
         return sellerScore;
     }
 
-    public void setSellerScore(BigDecimal sellerScore) {
+    public void setSellerScore(Double sellerScore) {
         this.sellerScore = sellerScore;
     }
 
-    public BigDecimal getSellerServiceScore() {
+    public Double getSellerServiceScore() {
         return sellerServiceScore;
     }
 
-    public void setSellerServiceScore(BigDecimal sellerServiceScore) {
+    public void setSellerServiceScore(Double sellerServiceScore) {
         this.sellerServiceScore = sellerServiceScore;
     }
 
-    public BigDecimal getSellerFoodScore() {
+    public Double getSellerFoodScore() {
         return sellerFoodScore;
     }
 
-    public void setSellerFoodScore(BigDecimal sellerFoodScore) {
+    public void setSellerFoodScore(Double sellerFoodScore) {
         this.sellerFoodScore = sellerFoodScore;
     }
 
-    public BigDecimal getSellerRankRate() {
+    public Double getSellerRankRate() {
         return sellerRankRate;
     }
 
-    public void setSellerRankRate(BigDecimal sellerRankRate) {
+    public void setSellerRankRate(Double sellerRankRate) {
         this.sellerRankRate = sellerRankRate;
     }
 
@@ -121,5 +123,25 @@ public class SellerInfo {
 
     public void setSellerBulletin(String sellerBulletin) {
         this.sellerBulletin = sellerBulletin == null ? null : sellerBulletin.trim();
+    }
+
+    @Override
+    public String _getTableName() {
+        return "seller_info";
+    }
+
+    @Override
+    public String _getPKColumnName() {
+        return "sellerId";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return sellerId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.sellerId = (String) var1;
     }
 }

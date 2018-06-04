@@ -8,6 +8,10 @@ import java.util.List;
 @Data
 public class ProductVO {
 
+    private String categoryId;
+
+    private String sellerId;
+
     @JsonProperty("name") /* 返回给前端是name */
     private String categoryName;
 
@@ -39,5 +43,21 @@ public class ProductVO {
 
     public void setProductInfoVOList(List<ProductInfoVO> productInfoVOList) {
         this.productInfoVOList = productInfoVOList;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 }

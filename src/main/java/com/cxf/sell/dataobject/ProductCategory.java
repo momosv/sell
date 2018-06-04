@@ -1,9 +1,11 @@
 package com.cxf.sell.dataobject;
 
+import com.cxf.sell.dataobject.base.IBaseDBPO;
+
 import java.util.Date;
 
-public class ProductCategory {
-    private Integer categoryId;
+public class ProductCategory extends IBaseDBPO{
+    private String categoryId;
 
     private String categoryName;
 
@@ -12,12 +14,21 @@ public class ProductCategory {
     private Date createTime;
 
     private Date updateTime;
+    private String seller_id;//所属商家
 
-    public Integer getCategoryId() {
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
+    }
+
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -51,5 +62,25 @@ public class ProductCategory {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String _getTableName() {
+        return "product_category";
+    }
+
+    @Override
+    public String _getPKColumnName() {
+        return "category_id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return categoryId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.categoryId= (String)var1;
     }
 }
