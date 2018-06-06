@@ -1,19 +1,38 @@
 package com.cxf.sell.dataobject;
 
 import com.cxf.sell.dataobject.base.IBaseDBPO;
-import sun.nio.cs.ext.IBM037;
+import com.cxf.sell.utils.RegexUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
-public class ProductInfo extends IBaseDBPO {
-    private String productId;
+public class ProductInfo  extends IBaseDBPO {
+    @Override
+    public String _getTableName() {
+        String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());
+        name=name.substring(1);
+        return name;
+    }
 
-    private String categoryId; //所属类目
+    @Override
+    public String _getPKColumnName() {
+        return "product_Id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return productId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.productId = (String) var1;
+    }
+
+    private String productId;
 
     private String productName;
 
-    private Integer productPrice;
+    private Double productPrice;
 
     private Integer productStock;
 
@@ -29,13 +48,9 @@ public class ProductInfo extends IBaseDBPO {
 
     private Date updateTime;
 
-    public String getCategoryId() {
-        return categoryId;
-    }
+    private String categoryId;
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
+    private String sellerId;
 
     public String getProductId() {
         return productId;
@@ -53,11 +68,11 @@ public class ProductInfo extends IBaseDBPO {
         this.productName = productName == null ? null : productName.trim();
     }
 
-    public Integer getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -117,23 +132,19 @@ public class ProductInfo extends IBaseDBPO {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String _getTableName() {
-        return "product_info";
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    @Override
-    public String _getPKColumnName() {
-        return "product_id";
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    @Override
-    public String _getPKValue() {
-        return productId;
+    public String getSellerId() {
+        return sellerId;
     }
 
-    @Override
-    public void _setPKValue(Object var1) {
-        this.productId = productId;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId == null ? null : sellerId.trim();
     }
 }

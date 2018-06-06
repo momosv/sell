@@ -3,19 +3,20 @@
 <mapper namespace="com.cxf.sell.repository.OrderMasterMapper" >
   <resultMap id="BaseResultMap" type="com.cxf.sell.dataobject.OrderMaster" >
     <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
     <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
     <result column="buyer_phone" property="buyerPhone" jdbcType="VARCHAR" />
     <result column="buyer_address" property="buyerAddress" jdbcType="VARCHAR" />
-    <result column="buyer_openid" property="buyerOpenid" jdbcType="VARCHAR" />
-    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="order_amount" property="orderAmount" jdbcType="VARCHAR" />
     <result column="order_status" property="orderStatus" jdbcType="TINYINT" />
     <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    order_id, buyer_name, buyer_phone, buyer_address, buyer_openid, order_amount, order_status, 
-    pay_status, create_time, update_time
+    order_id, seller_id, buyer_id, buyer_name, buyer_phone, buyer_address, order_amount, 
+    order_status, pay_status, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

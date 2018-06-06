@@ -3,10 +3,31 @@ package com.cxf.sell.dataobject;
 import com.cxf.sell.dataobject.base.IBaseDBPO;
 import com.cxf.sell.utils.RegexUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderDetail extends IBaseDBPO{
+
+    @Override
+    public String _getTableName() {
+        String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());
+        name=name.substring(1);
+        return name;
+    }
+
+    @Override
+    public String _getPKColumnName() {
+        return "detail_Id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return detailId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.detailId = (String) var1;
+    }
     private String detailId;
 
     private String orderId;
@@ -15,7 +36,7 @@ public class OrderDetail extends IBaseDBPO{
 
     private String productName;
 
-    private Double productPrice;
+    private Double producePrice;
 
     private Integer productQuantity;
 
@@ -24,6 +45,10 @@ public class OrderDetail extends IBaseDBPO{
     private Date createTime;
 
     private Date updateTime;
+
+    private String sellerId;
+
+    private String buyerId;
 
     public String getDetailId() {
         return detailId;
@@ -57,12 +82,12 @@ public class OrderDetail extends IBaseDBPO{
         this.productName = productName == null ? null : productName.trim();
     }
 
-    public Double getProductPrice() {
-        return productPrice;
+    public Double getProducePrice() {
+        return producePrice;
     }
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
+    public void setProducePrice(Double producePrice) {
+        this.producePrice = producePrice;
     }
 
     public Integer getProductQuantity() {
@@ -97,26 +122,19 @@ public class OrderDetail extends IBaseDBPO{
         this.updateTime = updateTime;
     }
 
-    //数据库表名
-    @Override
-    public String _getTableName() {
-        return "order_detail";
-       /* String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());//
-        return name;*/
-    }
-    //数据库表主键
-    @Override
-    public String _getPKColumnName() {
-        return "detail_id";
+    public String getSellerId() {
+        return sellerId;
     }
 
-    @Override
-    public String _getPKValue() {
-        return detailId;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId == null ? null : sellerId.trim();
     }
 
-    @Override
-    public void _setPKValue(Object var1) {
-        this.detailId= (String) var1;
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId == null ? null : buyerId.trim();
     }
 }

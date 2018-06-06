@@ -1,12 +1,38 @@
 package com.cxf.sell.dataobject;
 
 import com.cxf.sell.dataobject.base.IBaseDBPO;
+import com.cxf.sell.utils.RegexUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderMaster extends IBaseDBPO{
+    @Override
+    public String _getTableName() {
+        String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());
+        name=name.substring(1);
+        return name;
+    }
+
+    @Override
+    public String _getPKColumnName() {
+        return "order_Id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return orderId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.orderId = (String) var1;
+    }
+
     private String orderId;
+
+    private String sellerId;
+
+    private String buyerId;
 
     private String buyerName;
 
@@ -14,13 +40,11 @@ public class OrderMaster extends IBaseDBPO{
 
     private String buyerAddress;
 
-    private String buyerOpenid;
+    private String orderAmount;
 
-    private Double orderAmount;
+    private Byte orderStatus;
 
-    private Integer orderStatus;
-
-    private Integer payStatus;
+    private Byte payStatus;
 
     private Date createTime;
 
@@ -32,6 +56,22 @@ public class OrderMaster extends IBaseDBPO{
 
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId == null ? null : sellerId.trim();
+    }
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId == null ? null : buyerId.trim();
     }
 
     public String getBuyerName() {
@@ -58,35 +98,27 @@ public class OrderMaster extends IBaseDBPO{
         this.buyerAddress = buyerAddress == null ? null : buyerAddress.trim();
     }
 
-    public String getBuyerOpenid() {
-        return buyerOpenid;
-    }
-
-    public void setBuyerOpenid(String buyerOpenid) {
-        this.buyerOpenid = buyerOpenid == null ? null : buyerOpenid.trim();
-    }
-
-    public Double getOrderAmount() {
+    public String getOrderAmount() {
         return orderAmount;
     }
 
-    public void setOrderAmount(Double orderAmount) {
-        this.orderAmount = orderAmount;
+    public void setOrderAmount(String orderAmount) {
+        this.orderAmount = orderAmount == null ? null : orderAmount.trim();
     }
 
-    public Integer getOrderStatus() {
+    public Byte getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(Byte orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public Integer getPayStatus() {
+    public Byte getPayStatus() {
         return payStatus;
     }
 
-    public void setPayStatus(Integer payStatus) {
+    public void setPayStatus(Byte payStatus) {
         this.payStatus = payStatus;
     }
 
@@ -104,25 +136,5 @@ public class OrderMaster extends IBaseDBPO{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String _getTableName() {
-        return "order_master";
-    }
-
-    @Override
-    public String _getPKColumnName() {
-        return "order_id";
-    }
-
-    @Override
-    public String _getPKValue() {
-        return orderId;
-    }
-
-    @Override
-    public void _setPKValue(Object var1) {
-        this.orderId= (String) var1;
     }
 }

@@ -3,5 +3,5 @@ package com.cxf.sell.repository;
 import com.cxf.sell.dataobject.ProductCategory;
 
 public interface ProductCategoryMapper {
-    ProductCategory selectByPrimaryKey(Integer categoryId);
+    ProductCategory selectByPrimaryKey(String categoryId);
 }

@@ -3,8 +3,8 @@ package com.cxf.sell.service.impl;
 import com.cxf.sell.dto.OrderDTO;
 import com.cxf.sell.enums.ResultEnum;
 import com.cxf.sell.exception.SellException;
+import com.cxf.sell.service.BasicService;
 import com.cxf.sell.service.BuyerService;
-import com.cxf.sell.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
 public class BuyerServiceImpl implements BuyerService {
 
     @Autowired
-    private OrderService orderService;
+    private BasicService basicService;
 
     @Override
-    public OrderDTO findOrderOne(String openid, String orderId) {
-        return checkOrderOwner(openid, orderId);
+    public OrderDTO findOrderOne(String orderId) {
+        return checkOrderOwner(orderId);
     }
 
     @Override
-    public OrderDTO cancelOrder(String openid, String orderId) {
-        OrderDTO orderDTO = checkOrderOwner(openid, orderId);
+    public OrderDTO cancelOrder(String orderId) {
+        OrderDTO orderDTO = checkOrderOwner( orderId);
         if (orderDTO ==  null) {
             log.error("【取消订单】查不到改订单，orderId={}", orderId);
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);

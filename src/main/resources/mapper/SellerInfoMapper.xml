@@ -3,22 +3,25 @@
 <mapper namespace="com.cxf.sell.repository.SellerInfoMapper" >
   <resultMap id="BaseResultMap" type="com.cxf.sell.dataobject.SellerInfo" >
     <id column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="seller_account" property="sellerAccount" jdbcType="VARCHAR" />
+    <result column="seller_password" property="sellerPassword" jdbcType="VARCHAR" />
     <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
     <result column="seller_description" property="sellerDescription" jdbcType="VARCHAR" />
-    <result column="seller_score" property="sellerScore" jdbcType="DECIMAL" />
-    <result column="seller_service_score" property="sellerServiceScore" jdbcType="DECIMAL" />
-    <result column="seller_food_score" property="sellerFoodScore" jdbcType="DECIMAL" />
-    <result column="seller_rank_rate" property="sellerRankRate" jdbcType="DECIMAL" />
-    <result column="seller_min_price" property="sellerMinPrice" jdbcType="DECIMAL" />
-    <result column="seller_delivery_price" property="sellerDeliveryPrice" jdbcType="DECIMAL" />
-    <result column="seller_rating_count" property="sellerRatingCount" jdbcType="DECIMAL" />
+    <result column="seller_score" property="sellerScore" jdbcType="DOUBLE" />
+    <result column="seller_service_score" property="sellerServiceScore" jdbcType="DOUBLE" />
+    <result column="seller_food_service" property="sellerFoodService" jdbcType="DOUBLE" />
+    <result column="seller_rank_score" property="sellerRankScore" jdbcType="DOUBLE" />
+    <result column="seller_min_price" property="sellerMinPrice" jdbcType="DOUBLE" />
+    <result column="seller_delivery_price" property="sellerDeliveryPrice" jdbcType="DOUBLE" />
+    <result column="seller_rating_count" property="sellerRatingCount" jdbcType="DOUBLE" />
     <result column="seller_sell_count" property="sellerSellCount" jdbcType="INTEGER" />
     <result column="seller_bulletin" property="sellerBulletin" jdbcType="VARCHAR" />
+    <result column="seller_extra_infos" property="sellerExtraInfos" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    seller_id, seller_name, seller_description, seller_score, seller_service_score, seller_food_score, 
-    seller_rank_rate, seller_min_price, seller_delivery_price, seller_rating_count, seller_sell_count, 
-    seller_bulletin
+    seller_id, seller_account, seller_password, seller_name, seller_description, seller_score, 
+    seller_service_score, seller_food_service, seller_rank_score, seller_min_price, seller_delivery_price, 
+    seller_rating_count, seller_sell_count, seller_bulletin, seller_extra_infos
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

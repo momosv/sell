@@ -12,7 +12,7 @@ public class ProductInfoVO {
     @JsonProperty("name")
     private String productName;
     @JsonProperty("price")
-    private BigDecimal productPrice;
+    private Double productPrice;
     @JsonProperty("description")
     private String productDescription;
     @JsonProperty("icon")
@@ -44,11 +44,11 @@ public class ProductInfoVO {
         this.productName = productName;
     }
 
-    public BigDecimal getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 

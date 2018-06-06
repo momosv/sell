@@ -3,19 +3,19 @@
 <mapper namespace="com.cxf.sell.repository.ProductCategoryMapper" >
   <resultMap id="BaseResultMap" type="com.cxf.sell.dataobject.ProductCategory" >
     <id column="category_id" property="categoryId" jdbcType="VARCHAR" />
-    <id column="seller_id" property="sellerId" jdbcType="VARCHAR" />
-    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="INTEGER" />
     <result column="category_type" property="categoryType" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    category_id, category_name, category_type, create_time, update_time,seller_id
+    category_id, seller_id, category_name, category_type, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from product_category
-    where category_id = #{categoryId,jdbcType=INTEGER}
+    where category_id = #{categoryId,jdbcType=VARCHAR}
   </select>
 </mapper>

@@ -6,15 +6,17 @@
     <result column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="product_id" property="productId" jdbcType="VARCHAR" />
     <result column="product_name" property="productName" jdbcType="VARCHAR" />
-    <result column="product_price" property="productPrice" jdbcType="DECIMAL" />
+    <result column="produce_price" property="producePrice" jdbcType="DOUBLE" />
     <result column="product_quantity" property="productQuantity" jdbcType="INTEGER" />
     <result column="product_icon" property="productIcon" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="buyer_id" property="buyerId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    detail_id, order_id, product_id, product_name, product_price, product_quantity, product_icon, 
-    create_time, update_time
+    detail_id, order_id, product_id, product_name, produce_price, product_quantity, product_icon, 
+    create_time, update_time, seller_id, buyer_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

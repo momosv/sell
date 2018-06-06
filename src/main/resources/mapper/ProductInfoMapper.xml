@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cxf.sell.dataobject.ProductInfo" >
     <id column="product_id" property="productId" jdbcType="VARCHAR" />
     <result column="product_name" property="productName" jdbcType="VARCHAR" />
-    <result column="product_price" property="productPrice" jdbcType="DECIMAL" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
     <result column="product_stock" property="productStock" jdbcType="INTEGER" />
     <result column="product_description" property="productDescription" jdbcType="VARCHAR" />
     <result column="product_icon" property="productIcon" jdbcType="VARCHAR" />
@@ -13,10 +13,11 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     product_id, product_name, product_price, product_stock, product_description, product_icon, 
-    product_status, category_type, create_time, update_time,category_id
+    product_status, category_type, create_time, update_time, category_id, seller_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

@@ -1,11 +1,36 @@
 package com.cxf.sell.dataobject;
 
 import com.cxf.sell.dataobject.base.IBaseDBPO;
+import com.cxf.sell.utils.RegexUtils;
 
-import java.math.BigDecimal;
+public class SellerInfo   extends IBaseDBPO {
+    @Override
+    public String _getTableName() {
+        String name= RegexUtils.humpToLine2(this.getClass().getSimpleName());
+        name=name.substring(1);
+        return name;
+    }
 
-public class SellerInfo extends IBaseDBPO{
+    @Override
+    public String _getPKColumnName() {
+        return "seller_Id";
+    }
+
+    @Override
+    public String _getPKValue() {
+        return sellerId;
+    }
+
+    @Override
+    public void _setPKValue(Object var1) {
+        this.sellerId = (String) var1;
+    }
+
     private String sellerId;
+
+    private String sellerAccount;
+
+    private String sellerPassword;
 
     private String sellerName;
 
@@ -15,19 +40,21 @@ public class SellerInfo extends IBaseDBPO{
 
     private Double sellerServiceScore;
 
-    private Double sellerFoodScore;
+    private Double sellerFoodService;
 
-    private Double sellerRankRate;
+    private Double sellerRankScore;
 
-    private Integer sellerMinPrice;
+    private Double sellerMinPrice;
 
-    private Integer sellerDeliveryPrice;
+    private Double sellerDeliveryPrice;
 
-    private Short sellerRatingCount;
+    private Double sellerRatingCount;
 
     private Integer sellerSellCount;
 
     private String sellerBulletin;
+
+    private String sellerExtraInfos;
 
     public String getSellerId() {
         return sellerId;
@@ -35,6 +62,22 @@ public class SellerInfo extends IBaseDBPO{
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId == null ? null : sellerId.trim();
+    }
+
+    public String getSellerAccount() {
+        return sellerAccount;
+    }
+
+    public void setSellerAccount(String sellerAccount) {
+        this.sellerAccount = sellerAccount == null ? null : sellerAccount.trim();
+    }
+
+    public String getSellerPassword() {
+        return sellerPassword;
+    }
+
+    public void setSellerPassword(String sellerPassword) {
+        this.sellerPassword = sellerPassword == null ? null : sellerPassword.trim();
     }
 
     public String getSellerName() {
@@ -69,43 +112,43 @@ public class SellerInfo extends IBaseDBPO{
         this.sellerServiceScore = sellerServiceScore;
     }
 
-    public Double getSellerFoodScore() {
-        return sellerFoodScore;
+    public Double getSellerFoodService() {
+        return sellerFoodService;
     }
 
-    public void setSellerFoodScore(Double sellerFoodScore) {
-        this.sellerFoodScore = sellerFoodScore;
+    public void setSellerFoodService(Double sellerFoodService) {
+        this.sellerFoodService = sellerFoodService;
     }
 
-    public Double getSellerRankRate() {
-        return sellerRankRate;
+    public Double getSellerRankScore() {
+        return sellerRankScore;
     }
 
-    public void setSellerRankRate(Double sellerRankRate) {
-        this.sellerRankRate = sellerRankRate;
+    public void setSellerRankScore(Double sellerRankScore) {
+        this.sellerRankScore = sellerRankScore;
     }
 
-    public Integer getSellerMinPrice() {
+    public Double getSellerMinPrice() {
         return sellerMinPrice;
     }
 
-    public void setSellerMinPrice(Integer sellerMinPrice) {
+    public void setSellerMinPrice(Double sellerMinPrice) {
         this.sellerMinPrice = sellerMinPrice;
     }
 
-    public Integer getSellerDeliveryPrice() {
+    public Double getSellerDeliveryPrice() {
         return sellerDeliveryPrice;
     }
 
-    public void setSellerDeliveryPrice(Integer sellerDeliveryPrice) {
+    public void setSellerDeliveryPrice(Double sellerDeliveryPrice) {
         this.sellerDeliveryPrice = sellerDeliveryPrice;
     }
 
-    public Short getSellerRatingCount() {
+    public Double getSellerRatingCount() {
         return sellerRatingCount;
     }
 
-    public void setSellerRatingCount(Short sellerRatingCount) {
+    public void setSellerRatingCount(Double sellerRatingCount) {
         this.sellerRatingCount = sellerRatingCount;
     }
 
@@ -125,23 +168,11 @@ public class SellerInfo extends IBaseDBPO{
         this.sellerBulletin = sellerBulletin == null ? null : sellerBulletin.trim();
     }
 
-    @Override
-    public String _getTableName() {
-        return "seller_info";
+    public String getSellerExtraInfos() {
+        return sellerExtraInfos;
     }
 
-    @Override
-    public String _getPKColumnName() {
-        return "sellerId";
-    }
-
-    @Override
-    public String _getPKValue() {
-        return sellerId;
-    }
-
-    @Override
-    public void _setPKValue(Object var1) {
-        this.sellerId = (String) var1;
+    public void setSellerExtraInfos(String sellerExtraInfos) {
+        this.sellerExtraInfos = sellerExtraInfos == null ? null : sellerExtraInfos.trim();
     }
 }

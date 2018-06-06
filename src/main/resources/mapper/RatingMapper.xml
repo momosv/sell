@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxf.sell.repository.RatingMapper" >
+  <resultMap id="BaseResultMap" type="com.cxf.sell.dataobject.Rating" >
+    <id column="rating_id" property="ratingId" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="rate_time" property="rateTime" jdbcType="TIMESTAMP" />
+    <result column="rate_type" property="rateType" jdbcType="TINYINT" />
+    <result column="rate_text" property="rateText" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rating_id, product_id, seller_id, buyer_name, rate_time, rate_type, rate_text
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rating
+    where rating_id = #{ratingId,jdbcType=VARCHAR}
+  </select>
+</mapper>

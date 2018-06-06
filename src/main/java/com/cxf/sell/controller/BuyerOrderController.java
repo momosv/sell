@@ -3,6 +3,7 @@ package com.cxf.sell.controller;
 import com.cxf.sell.VO.ResultVO;
 
 import com.cxf.sell.converter.OrderForm2OrderDTOConverter;
+import com.cxf.sell.dataobject.OrderMaster;
 import com.cxf.sell.dto.OrderDTO;
 import com.cxf.sell.enums.ResultEnum;
 import com.cxf.sell.exception.SellException;
@@ -34,29 +35,20 @@ public class BuyerOrderController {
      * 订单详情
      * 取消订单
      */
-
+/*
     @Autowired
-    private OrderService orderService;
+    private OrderService orderService;*/
 
     @Autowired
     private BuyerService buyerService;
 
     // 创建订单
-    public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm, BindingResult bindingResult) {
+    public ResultVO<Map<String, String>> create(OrderMaster orderMaster, String item) {
         // 检验一下表单提交之后有没有错误
-        if (bindingResult.hasErrors()) {
-          //  log.error("【创建订单】参数不正确, orderForm={}", orderForm);
-            throw new SellException(ResultEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
-        }
 
-        OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
-        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
-          //  log.error("【创建订单】购物车不能为空");
-            throw new SellException(ResultEnum.CART_EMPTY);
-        }
-        OrderDTO createResult = orderService.create(orderDTO);
+
         Map<String, String> map = new HashMap<>();
-        map.put("orderId", createResult.getOrderId());
+      //  map.put("orderId", createResult.getOrderId());
         return ResultVOUtils.success(map);
     }
 
@@ -68,7 +60,7 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
         PageRequest request = new PageRequest(page, size);
-        Page<OrderDTO> orderDTOPage = orderService.findList(openid, request);
+      //  Page<OrderDTO> orderDTOPage = orderService.findList(openid, request);
         // 返回列表
         return ResultVOUtils.success(orderDTOPage.getContent());
     }
