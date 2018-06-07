@@ -14,10 +14,23 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
     <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="sell_Count" property="sellCount" jdbcType="INTEGER" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="old_Price" property="oldPrice" jdbcType="DOUBLE" />
+    <result column="rating" property="rating" jdbcType="DOUBLE" />
   </resultMap>
+  <!--
+    private Integer sellCount;
+    private String info;
+    private String image;
+    private Integer oldPrice;
+
+    private Double rating ;//好评率-->
   <sql id="Base_Column_List" >
     product_id, product_name, product_price, product_stock, product_description, product_icon, 
-    product_status, category_type, create_time, update_time, category_id, seller_id
+    product_status, category_type, create_time, update_time, category_id, seller_id,sell_Count,
+    info,image,old_price,rating
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

@@ -1,12 +1,9 @@
 package com.cxf.sell.controller;
 
+import com.cxf.sell.VO.*;
 import com.cxf.sell.controller.base.BasicController;
-import com.cxf.sell.dataobject.ProductCategory;
-import com.cxf.sell.dataobject.ProductInfo;
-import com.cxf.sell.dataobject.Rating;
-import com.cxf.sell.dataobject.SellerInfo;
+import com.cxf.sell.dataobject.*;
 import com.cxf.sell.dataobject.base.BasicExample;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,61 +20,75 @@ public class SellerController extends BasicController {
     private SellerService sellerService;*/
 
     @RequestMapping("/goods")
-    public Object getSellerInfo(String sellerId) throws Exception {
+    public Object getGoodList(String sellerId) throws Exception {
         //获得类目
         BasicExample exa = new BasicExample(ProductCategory.class);
         exa.createCriteria().andVarEqualTo("seller_id",sellerId);
-        List<ProductCategory> pList =  basicService.selectByExample(exa);
+        List<ProductCategoryVO> pList =  basicService.selectByExample(exa);
+        Map<String,ProductCategoryVO> pMap = new HashMap<>();
         List<String> pIds= new ArrayList<>();
-        for (ProductCategory category : pList) {
+        for (ProductCategoryVO category : pList) {
             pIds.add(category.getCategoryId());
+            pMap.put(category.getCategoryId(),category);
         }
         //获得商品
         BasicExample infoExa = new BasicExample(ProductInfo.class);
         infoExa.createCriteria().andVarIn("category_Id",pIds);
-        List<ProductInfo> infoList = basicService.selectByExample(infoExa);
-        Map<String,List<ProductInfo>> infoMap = new HashMap<>();
+        List<ProductInfoVO> infoList = basicService.selectByExample(infoExa);
+        Map<String,ProductInfoVO> infoMap = new HashMap<>();
         List<String> infoIds= new ArrayList<>();
-        for (ProductInfo info : infoList) {
+        for (ProductInfoVO info : infoList) {
             infoIds.add(info.getProductId());
-            if(infoMap.containsKey(info.getCategoryId())){
-                infoMap.get(info.getProductId()).add(info);
+            infoMap.put(info.getProductId(),info);
+            ProductCategoryVO pVO= pMap.get(info.getCategoryId());
+            if(null != pVO.getProductInfoVOList()){
+                pVO.getProductInfoVOList().add(info);
             }else {
-                List<ProductInfo> l = new ArrayList<>();
-                l.add(info);
-                infoMap.put(info.getCategoryId(),l);
+                List<ProductInfoVO> list = new ArrayList<>();
+                list.add(info);
+                pVO.setProductInfoVOList(list);
             }
         }
         //获得评论
         BasicExample rateExa = new BasicExample(Rating.class);
         infoExa.createCriteria().andVarIn("product_Id",infoIds);
-        List<Rating> rating = basicService.selectByExample(infoExa);
-        Map<String,List<Rating>> rateMap = new HashMap<>();
-        for (Rating rate : rating) {
-           if(rateMap.containsKey(rate.getProductId())){
-               rateMap.get(rate.getProductId()).add(rate);
-           }else {
-               List<Rating> l = new ArrayList<>();
-               l.add(rate);
-               rateMap.put(rate.getProductId(),l);
-           }
+        List<RatingVO> rating = basicService.selectByExample(infoExa);
+        for (RatingVO rate : rating) {
+            ProductInfoVO pVO= infoMap.get(rate.getProductId());
+            if(null != pVO.getRatings()){
+                pVO.getRatings().add(rate);
+            }else {
+                List<RatingVO> list = new ArrayList<>();
+                list.add(rate);
+                pVO.setRatings(list);
+            }
         }
-
-
-        return  null;
+        return  successMsg().add("goods",pList);
 
     }
 
 
     @RequestMapping("/ratings")
-    public Object getGoods(String sellerId) throws Exception {
+    public Object getSellerRating(String sellerId) throws Exception {
         BasicExample exa = new BasicExample(SellerInfo.class);
-
-        exa.createCriteria().andVarIn("seller_id",sellerId);
-
-        List<Rating> rList =  basicService.selectByExample(exa);
-
+        exa.createCriteria().andVarIn("id",sellerId);
+        List<RatingVO> rList =  basicService.selectByExample(exa);
         return successMsg().add("ratings",rList);
+    }
+
+    @RequestMapping("/seller")
+    public Object getSellerInfo(String sellerId) throws Exception {
+        //获得商家详情
+        SellerInfoVO seller = (SellerInfoVO) basicService.selectByPrimaryKey(SellerInfoVO.class,sellerId);
+        if(seller == null){
+            return failMsg("商家不存在");
+        }
+        //获取活动
+        BasicExample exa = new BasicExample(SellerActivity.class);
+        exa.createCriteria().andVarEqualTo("seller_id",sellerId);
+        List<SellerActivityVO> sList =  basicService.selectByExample(exa);
+        seller.setSupports(sList);
+        return successMsg().add("seller",seller);
     }
 
 }

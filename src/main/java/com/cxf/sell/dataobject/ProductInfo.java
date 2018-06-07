@@ -51,6 +51,51 @@ public class ProductInfo  extends IBaseDBPO {
     private String categoryId;
 
     private String sellerId;
+    private Integer sellCount;
+    private String info;
+    private String image;
+    private Double oldPrice;
+
+    private Double rating;//好评率
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+    public Integer getSellCount() {
+        return sellCount;
+    }
+
+    public void setSellCount(Integer sellCount) {
+        this.sellCount = sellCount;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Double getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(Double oldPrice) {
+        this.oldPrice = oldPrice;
+    }
 
     public String getProductId() {
         return productId;

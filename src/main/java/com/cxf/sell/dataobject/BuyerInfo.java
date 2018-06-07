@@ -29,15 +29,15 @@ public class BuyerInfo extends IBaseDBPO{
     }
     private String buyerId;
 
-    private String buyerAccount;
+    private String account;
 
-    private String buyerPassword;
+    private String password;
 
-    private String buyerName;
+    private String name;
 
-    private String buyerPhone;
+    private String phone;
 
-    private String buyerAddress;
+    private String address;
 
     public String getBuyerId() {
         return buyerId;
@@ -47,44 +47,44 @@ public class BuyerInfo extends IBaseDBPO{
         this.buyerId = buyerId == null ? null : buyerId.trim();
     }
 
-    public String getBuyerAccount() {
-        return buyerAccount;
+    public String getAccount() {
+        return account;
     }
 
-    public void setBuyerAccount(String buyerAccount) {
-        this.buyerAccount = buyerAccount == null ? null : buyerAccount.trim();
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
     }
 
-    public String getBuyerPassword() {
-        return buyerPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBuyerPassword(String buyerPassword) {
-        this.buyerPassword = buyerPassword == null ? null : buyerPassword.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getBuyerName() {
-        return buyerName;
+    public String getName() {
+        return name;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName == null ? null : buyerName.trim();
+    public void setName(String buyerName) {
+        this.name = buyerName == null ? null : buyerName.trim();
     }
 
-    public String getBuyerPhone() {
-        return buyerPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setBuyerPhone(String buyerPhone) {
-        this.buyerPhone = buyerPhone == null ? null : buyerPhone.trim();
+    public void setPhone(String buyerPhone) {
+        this.phone = buyerPhone == null ? null : buyerPhone.trim();
     }
 
-    public String getBuyerAddress() {
-        return buyerAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setBuyerAddress(String buyerAddress) {
-        this.buyerAddress = buyerAddress == null ? null : buyerAddress.trim();
+    public void setAddress(String buyerAddress) {
+        this.address = buyerAddress == null ? null : buyerAddress.trim();
     }
 
 }

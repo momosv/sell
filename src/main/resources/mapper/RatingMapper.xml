@@ -9,9 +9,12 @@
     <result column="rate_time" property="rateTime" jdbcType="TIMESTAMP" />
     <result column="rate_type" property="rateType" jdbcType="TINYINT" />
     <result column="rate_text" property="rateText" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="delivery_Time" property="deliveryTime" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    rating_id, product_id, seller_id, buyer_name, rate_time, rate_type, rate_text
+    rating_id, product_id, seller_id, buyer_name, rate_time, rate_type, rate_text,avatar,delivery_Time,score
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

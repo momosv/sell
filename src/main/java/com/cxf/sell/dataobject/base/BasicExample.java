@@ -309,7 +309,7 @@ public class BasicExample <T extends IBaseDBPO>{
 		}
 		public Criteria andVarIn(String var,String values) {
 			var = RegexUtils.humpToLine(var);
-			addCriterion(var + " in", values, var);
+			addCriterion(var + " in", " ("+values+")", var);
 			return (Criteria) this;
 		}
 

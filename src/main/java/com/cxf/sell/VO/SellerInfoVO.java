@@ -1,8 +1,11 @@
-package com.cxf.sell.dataobject;
+package com.cxf.sell.VO;
 
 import com.cxf.sell.dataobject.base.IBaseDBPO;
+import com.cxf.sell.utils.RegexUtils;
 
-public class SellerInfo extends IBaseDBPO {
+import java.util.List;
+
+public class SellerInfoVO extends IBaseDBPO {
     @Override
     public String _getTableName() {
         return "seller_info";
@@ -173,4 +176,14 @@ public class SellerInfo extends IBaseDBPO {
         this.extraInfos = extraInfos == null ? null : extraInfos.trim();
     }
 
+
+    private List<SellerActivityVO> supports;
+
+    public List<SellerActivityVO> getSupports() {
+        return supports;
+    }
+
+    public void setSupports(List<SellerActivityVO> supports) {
+        this.supports = supports;
+    }
 }
