@@ -40,8 +40,8 @@ logging:
 
 mybatis:
      mapperLocations: classpath:/mapper/*.xml
-     typeAliasesPackage: cn.momosv.hos.dao
-     mapperScanPackage: cn.momosv.hos.dao
+     typeAliasesPackage: com.cxf.sell.repository
+     mapperScanPackage: com.cxf.sell.repository
      configLocation: classpath:/mybatis-config.xml
 #  jpa:
 #    show-sql: true
