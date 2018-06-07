@@ -22,7 +22,7 @@ public class SellerController extends BasicController {
     @RequestMapping("/goods")
     public Object getGoodList(String sellerId) throws Exception {
         //获得类目
-        BasicExample exa = new BasicExample(ProductCategory.class);
+        BasicExample exa = new BasicExample(ProductCategoryVO.class);
         exa.createCriteria().andVarEqualTo("seller_id",sellerId);
         List<ProductCategoryVO> pList =  basicService.selectByExample(exa);
         Map<String,ProductCategoryVO> pMap = new HashMap<>();
@@ -32,8 +32,8 @@ public class SellerController extends BasicController {
             pMap.put(category.getCategoryId(),category);
         }
         //获得商品
-        BasicExample infoExa = new BasicExample(ProductInfo.class);
-        infoExa.createCriteria().andVarIn("category_Id",pIds);
+        BasicExample infoExa = new BasicExample(ProductInfoVO.class);
+        infoExa.createCriteria().andVarIn("category_id",pIds);
         List<ProductInfoVO> infoList = basicService.selectByExample(infoExa);
         Map<String,ProductInfoVO> infoMap = new HashMap<>();
         List<String> infoIds= new ArrayList<>();
@@ -50,9 +50,9 @@ public class SellerController extends BasicController {
             }
         }
         //获得评论
-        BasicExample rateExa = new BasicExample(Rating.class);
-        infoExa.createCriteria().andVarIn("product_Id",infoIds);
-        List<RatingVO> rating = basicService.selectByExample(infoExa);
+        BasicExample rateExa = new BasicExample(RatingVO.class);
+        rateExa.createCriteria().andVarIn("product_id",infoIds);
+        List<RatingVO> rating = basicService.selectByExample(rateExa);
         for (RatingVO rate : rating) {
             ProductInfoVO pVO= infoMap.get(rate.getProductId());
             if(null != pVO.getRatings()){
@@ -70,8 +70,8 @@ public class SellerController extends BasicController {
 
     @RequestMapping("/ratings")
     public Object getSellerRating(String sellerId) throws Exception {
-        BasicExample exa = new BasicExample(SellerInfo.class);
-        exa.createCriteria().andVarIn("id",sellerId);
+        BasicExample exa = new BasicExample(RatingVO.class);
+        exa.createCriteria().andVarEqualTo("seller_id",sellerId);
         List<RatingVO> rList =  basicService.selectByExample(exa);
         return successMsg().add("ratings",rList);
     }
@@ -84,7 +84,7 @@ public class SellerController extends BasicController {
             return failMsg("商家不存在");
         }
         //获取活动
-        BasicExample exa = new BasicExample(SellerActivity.class);
+        BasicExample exa = new BasicExample(SellerActivityVO.class);
         exa.createCriteria().andVarEqualTo("seller_id",sellerId);
         List<SellerActivityVO> sList =  basicService.selectByExample(exa);
         seller.setSupports(sList);

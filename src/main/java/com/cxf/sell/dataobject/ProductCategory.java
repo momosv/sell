@@ -32,7 +32,7 @@ public class ProductCategory  extends IBaseDBPO {
 
     private String sellerId;
 
-    private Integer categoryName;
+    private String categoryName;
 
     private Integer categoryType;
 
@@ -56,11 +56,11 @@ public class ProductCategory  extends IBaseDBPO {
         this.sellerId = sellerId == null ? null : sellerId.trim();
     }
 
-    public Integer getCategoryName() {
+    public String getCategoryName() {
         return categoryName;
     }
 
-    public void setCategoryName(Integer categoryName) {
+    public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
